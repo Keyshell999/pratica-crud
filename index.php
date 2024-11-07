@@ -11,16 +11,23 @@
 </head>
 
 <body>
-    <h1 class="text-center p-3">HOLA</h1>
+    <script>
+        function eliminar(){
+            var respuesta= confirm("Estas seguro de eliminar este registro?");
+            return respuesta
+        }
+    </script>
+
+    <h1 class="text-center p-3">Gestion de servicios</h1>
 
     <div class="container-fluid row">
 
-        <form class="col-4 p3" method="POST" action="controlador/registro_persona.php">
+        <form class="col-4 p3" method="POST">
 
-            <h3 class="text-center text-secondary">Registro de personas</h3>
+            <h3 class="text-center text-secondary">Registro de servicio</h3>
             <?php
-            include "modelo/conectar.php";
-            include "controlador/registro_persona.php";
+            include_once "modelo/conectar.php";
+            include_once "controlador/registro_servicio.php";
             ?>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Ubicacion</label>
@@ -38,21 +45,22 @@
             </div>
 
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Tipo de servicio</label>
-                <select class="select-9" name="id_tipo_servicio">
-                    <option value="1">Tecnico</option>
-                    <option value="2">Electricista</option>
-                    <option value="3">Pintor</option>
-                    <option value="4">Carpintero</option>
-                    <option value="5">Plomero</option>
-                    <option value="6">Limpieza</option>
-                    <option value="7">Intalador</option>
-                    <option value="8">Albañil</option>
-                    <option value="9">Gas</option>
+                <label for="exampleInputEmail1" class="form-label">Nuevo tipo de servicio</label>
+                <select class="form-select" name="tipo_servicio">
+                    <option aria-placeholder="Hola"></option>
+                    <option value="Tecnico">Tecnico</option>
+                    <option value="Electricista">Electricista</option>
+                    <option value="Pintor">Pintor</option>
+                    <option value="Carpintero">Carpintero</option>
+                    <option value="Plomero">Plomero</option>
+                    <option value="Limpieza">Limpieza</option>
+                    <option value="Intalador">Intalador</option>
+                    <option value="Albañil">Albañil</option>
+                    <option value="Gas">Gas</option>
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary" name="btnregistrar" value="OK">Registrarse</button>
+            <button type="submit" class="btn btn-primary" name="btnregistrar" value="OK">Registrar</button>
         </form>
 
         <div class="col-8 p-4">
@@ -65,13 +73,14 @@
                         <th scope="col">DESCRIPCION</th>
                         <th scope="col">OBJETO A REPARAR</th>
                         <th scope="col">TIPO DE SERVICIO</th>
+                        <th scope="col">NUEVO SERVICIO</th>
                         <th></th>
                     </tr>
                 </thead>
 
-                <tbody> 
+                <tbody>
                     <?php
-                    include "modelo/conectar.php";
+                    include_once "controlador/eliminar_servicio.php";
                     $sql = $conectar->query("SELECT * FROM servicio");
                     while ($datos = $sql->fetch_object()) { ?>
                         <tr>
@@ -80,9 +89,10 @@
                             <td><?= $datos->descripcion ?></td>
                             <td><?= $datos->objeto_a_reparar ?></td>
                             <td><?= $datos->id_tipo_servicio ?></td>
+                            <td><?= $datos->tipo_servicio ?></td>
                             <td>
                                 <a href="modificar_servicio.php?id=<?= $datos->id_servicio ?>" class="btn btn-small btn-warning"><i class="fa-solid fa-pen-to-square"></i>Editar</a>
-                                <a href="" class="btn btn-small btn-danger"><i class="fa-solid fa-trash" ></i>Eliminar</a>
+                                <a onclick="return eliminar()" href="index.php?id=<?= $datos->id_servicio ?>" class="btn btn-small btn-danger"><i class="fa-solid fa-trash"></i>Eliminar</a>
                             </td>
                         </tr>
                     <?php }

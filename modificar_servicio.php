@@ -1,5 +1,6 @@
 <?php
 include_once "modelo/conectar.php";
+include_once "controlador/actualizar_servicio.php";
 
 // Verifica si 'id' está definido en $_GET
 if (isset($_GET["id"])) {
@@ -29,13 +30,13 @@ if (isset($_GET["id"])) {
 
     <div class="container-fluid row">
 
-        <form class="col-4 p3 m-auto" method="POST" action="controlador/actualizar_servicio.php">
+        <form class="col-4 p3 m-auto" method="POST">
 
             <h3 class="text-center text-secondary">Modificar servicio</h3>
             <input type="hidden" name="id_servicio" value="<?= $_GET["id"]; ?>">
 
             <?php
-
+            
             while ($datos = $sql->fetch_object()) { ?>
 
                 <input type="hidden" name="id" value="<?= htmlspecialchars($datos->id_servicio) ?>">

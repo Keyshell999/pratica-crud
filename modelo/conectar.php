@@ -6,5 +6,4 @@ if ($conectar->connect_error) {
     die("Error de conexión: " . $conectar->connect_error);
 }
 
-echo "Conexión exitosa";
 ?>
